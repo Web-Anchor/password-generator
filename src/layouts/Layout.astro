@@ -12,14 +12,38 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
+		<!-- add favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"/>
+		<!-- @meta -->
 		<title>{title}</title>
+		<meta name="keywords" content="your, keywords, here" />
+    <meta name="author" content="Your Name" />
+		<meta name="description" content="A description of your page" />
 	</head>
-	<body>
-		<slot />
+	<body class="flex flex-col h-screen bg-gray-900 text-gray-50">
+		<header class="flex bg-blue-400">
+			<h1>{title}</h1>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/about">About</a>
+			</nav>
+		</header>
+
+		<section class="flex flex-1 flex-col">
+			<slot />
+		</section>
+
+		<footer class="flex flex-co bg-blue-400">
+			<p>
+				<a href="https://astro.build">Astro</a> is a project of{' '}
+				<a href="https://snowpack.dev">Snowpack</a>
+			</p>
+		</footer>
 	</body>
 </html>
+
 <style is:global>
 	:root {
 		--accent: 136, 58, 234;
@@ -34,18 +58,5 @@ const { title } = Astro.props;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
 	}
 </style>
