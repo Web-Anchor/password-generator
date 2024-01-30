@@ -52,3 +52,18 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## [htmx in a Nutshell](https://htmx.org/docs/)
+
+htmx is a library that allows you to access modern browser features directly from HTML, rather than using javascript.
+
+```html
+<button
+  hx-post="/clicked"
+  hx-trigger="click"
+  hx-target="#parent-div"
+  hx-swap="outerHTML"
+>
+  Click Me!
+</button>
+```
