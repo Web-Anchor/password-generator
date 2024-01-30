@@ -1,5 +1,6 @@
 ---
 import Layout from '@layouts/Layout.astro'
+import Input from '@components/input.astro'
 ---
 
 <Layout title="Welcome to Astro.">
@@ -15,15 +16,15 @@ import Layout from '@layouts/Layout.astro'
         >
         </div>
       </div>
-      <div class="py-24 sm:py-32 lg:pb-40">
+      <div class="sm:py-5 lg:pb-40">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl text-center">
             <h1
-              class="text-4xl font-bold tracking-tight text-white sm:text-6xl"
+              class="text-2xl font-bold tracking-tight text-white sm:text-6xl"
             >
-              Data to enrich your online business
+              Component Generator 🚀
             </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300">
+            <p class="mt-6 text-md leading-8 text-gray-300">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.
@@ -41,6 +42,8 @@ import Layout from '@layouts/Layout.astro'
           </div>
         </div>
       </div>
+
+      <Input />
     </div>
   </div>
 </Layout>
