@@ -4,21 +4,50 @@ import Card from '../components/Card.astro'
 ---
 
 <Layout title="Welcome to Astro.">
-  <main>
-    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
-    <p class="instructions">
-      To get started, open the directory <code>src/pages</code> in your project.<br
-      />
-      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-    </p>
-  </main>
-  <section class="w-fit mx-auto p-5 bg-gray-200 text-red-600 rounded-2xl">
-    <p>Taiwind Container CSS</p>
+  <section class="flex flex-col gap-5 m-5 p-5 bg-gray-600 rounded-3xl">
+    <div>
+      <h1>
+        Welcome to <span
+          class="bg-gradient-to-l from-green-400 to-blue-500 text-transparent bg-clip-text font-bold"
+          >Astro</span
+        >
+      </h1>
+    </div>
+    <div>
+      <p class="instructions">
+        To get started, open the directory <code>src/pages</code> in your project.<br
+        />
+        <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+      </p>
+    </div>
   </section>
 
-  <div hx-post="/mouse_entered" hx-trigger="mouseenter"
-    class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-2 px-4 rounded-full"
-  >
-    [Here Mouse, Mouse!]
+  <section class="flex flex-col gap-5 w-fit mx-auto">
+    <button
+      hx-post="/mouse_entered"
+      hx-trigger="mouseenter"
+      class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-2 px-4 rounded-full"
+    >
+      On Mouse Enter
+    </button>
+
+    <button
+      hx-post="/api/response/div"
+      hx-trigger="click"
+      hx-target="#response"
+      hx-swap="innerHTML swap:1s"
+      class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-2 px-4 rounded-full"
+    >
+      Post to API
+    </button>
+
+  </section>
+
+  <section class="flex w-fit mx-auto" id="response"> 
+
+    <div  class="flex justify-center m-auto rounded-3xl mt-8 border w-[100px] h-[100px]"
+    >
+    <p class="h-fit self-center text-gray-400">Target</p>
   </div>
+  </section>
 </Layout>
