@@ -1,5 +1,11 @@
 ---
+import Button from '@components/Button'
 
+function handleTextareaChange(event: any) {
+  const comment = event.target.value // Update the comment variable when the textarea value changes
+
+  console.log('🚀 ', comment)
+}
 ---
 
 <div class="flex items-start space-x-4 lg:px-40">
@@ -22,7 +28,6 @@
           id="comment"
           class="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-200 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           placeholder="Add your request..."></textarea>
-
         <!-- Spacer element to match the height of the toolbar -->
         <div class="py-2" aria-hidden="true">
           <!-- Matches height of button in toolbar (1px border + 36px content height) -->
@@ -36,12 +41,7 @@
         class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2"
       >
         <div class="flex-shrink-0 ml-auto">
-          <button
-            type="submit"
-            id="submit"
-            class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >Post</button
-          >
+          <Button id="submit-req" />
         </div>
       </div>
     </form>
@@ -49,13 +49,12 @@
 </div>
 
 <script>
-  const submit = document.getElementById('submit')
-  const comment = document.getElementById('comment')
+  async function submitHandler() {
+    const comment = document.getElementById('comment')?.value;
+    console.log('🚀 ', comment)
+  }
 
-  submit?.addEventListener('click', (e) => {
-    e.preventDefault()
-    const commentValue = (comment as HTMLTextAreaElement)?.value
-
-    console.log('⭐️ ', commentValue)
-  })
+  const submitBtn = document.getElementById('submit-req')
+  submitBtn?.addEventListener('click', submitHandler)
+</script>
 </script>
