@@ -6,6 +6,7 @@
     "paths": {
       "@pages/*": ["./src/pages/*"],
       "@layouts/*": ["./src/layouts/*"],
+      "@helpers/*": ["./src//helpers/*"],
       "@components/*": ["./src/components/*"],
     },
   },
