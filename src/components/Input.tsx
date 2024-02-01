@@ -9,7 +9,7 @@ export default function Input() {
   }
 
   return (
-    <div className="flex items-start space-x-4 lg:px-40">
+    <div className="flex items-start space-x-4 lg:px-40 mt-10">
       <div className="flex-shrink-0">
         <img
           className="inline-block h-10 w-10 rounded-full"
