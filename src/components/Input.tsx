@@ -2,7 +2,8 @@ import Button from '@components/Button'
 import React, { useState } from 'react'
 import axios from 'axios'
 import { message } from 'antd'
-import ReactHtmlParser from 'react-html-parser'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 type StateType = {
   prompt?: string
@@ -67,14 +68,20 @@ export default function Input(props: ComponentType) {
             <div key={index} className="flex items-start">
               <div className="min-w-0 flex-1">
                 <div className="bg-gray-800 rounded-lg p-3">
-                  <p className="text-gray-200">{ReactHtmlParser(chat)}</p>
+                  <Markdown
+                    remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+                  >
+                    {chat}
+                  </Markdown>
                 </div>
               </div>
             </div>
           )
         })}
         {state?.stream && (
-          <p className="text-gray-200">{ReactHtmlParser(state?.stream)}</p>
+          <Markdown remarkPlugins={[[remarkGfm, { singleTilde: false }]]}>
+            {state?.stream}
+          </Markdown>
         )}
       </div>
 
