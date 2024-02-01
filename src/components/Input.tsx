@@ -32,12 +32,11 @@ export default function Input(props: ComponentType) {
         body: JSON.stringify({ prompt: state.prompt }),
       })
 
-      console.log('⭐️ ', 'submit', response)
-      const reader = response.body.getReader()
+      const reader = response?.body?.getReader?.()
       let stream = ''
 
       const decode = new TextDecoder()
-      while (true) {
+      while (true && reader) {
         const { done, value } = await reader.read()
         if (done) break
         const text = decode.decode(value)

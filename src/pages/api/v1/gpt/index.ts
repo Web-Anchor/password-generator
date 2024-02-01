@@ -1,6 +1,7 @@
 import type { APIRoute, APIContext } from 'astro'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
+import { initialProgrammerMessages } from '../messages'
 
 // --------------------------------------------------------------------------------
 // 📌  Create AI instance
@@ -23,7 +24,7 @@ export const POST: APIRoute = async ({
 
   const completion = await openai.chat.completions.create({
     messages: [
-      { role: 'system', content: 'You are a Coding Assistant' },
+      ...initialProgrammerMessages,
       { role: 'user', content: body.prompt },
     ],
     model: 'gpt-4-vision-preview',
