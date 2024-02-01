@@ -6,6 +6,7 @@ export default function Input() {
 
   async function submit() {
     console.log('🚀 ', value)
+    console.log('🚀 ', import.meta.env.OPENAI_API_KEY)
   }
 
   return (
