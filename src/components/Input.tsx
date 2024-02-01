@@ -7,6 +7,7 @@ import ReactHtmlParser from 'react-html-parser'
 type StateType = {
   prompt?: string
   chat?: string[]
+  stream?: string
   fetching?: boolean
 }
 
@@ -16,31 +17,40 @@ type ComponentType = {
 
 export default function Input(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
-  console.log('====================================')
-  console.log('state: ', state)
-  console.log('====================================')
 
   async function submit() {
     try {
       if (!state.prompt) return message.error('Please enter a prompt')
       setState((prev) => ({ ...prev, fetching: true }))
 
-      const { data } = await axios('/api/v1/gpt', {
+      const response = await fetch('/api/v1/gpt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        data: {
-          prompt: state.prompt,
-          max_tokens: 5,
-        },
+        body: JSON.stringify({ prompt: state.prompt }),
       })
-      console.log('🚀 ', data)
-      props?.callBack?.({ chat: data?.chat, prompt: state.prompt })
+
+      console.log('⭐️ ', 'submit', response)
+      const reader = response.body.getReader()
+      let stream = ''
+
+      const decode = new TextDecoder()
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        const text = decode.decode(value)
+        stream += text
+
+        setState((prev) => ({ ...prev, stream }))
+      }
+
+      // add to chat list and clear prompt list & stream
       setState((prev) => ({
         ...prev,
-        chat: [...(prev.chat ?? []), data?.chat],
+        chat: [...(prev.chat ?? []), stream],
         prompt: '',
+        stream: undefined,
       }))
     } catch (error) {
       console.error('😢 error: ', error)
@@ -63,6 +73,9 @@ export default function Input(props: ComponentType) {
             </div>
           )
         })}
+        {state?.stream && (
+          <p className="text-gray-200">{ReactHtmlParser(state?.stream)}</p>
+        )}
       </div>
 
       <div className="flex items-start space-x-4 lg:px-40">

@@ -1,6 +1,10 @@
 import type { APIRoute, APIContext } from 'astro'
-
+import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
+
+// --------------------------------------------------------------------------------
+// 📌  Create AI instance
+// --------------------------------------------------------------------------------
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 })
@@ -22,24 +26,12 @@ export const POST: APIRoute = async ({
       { role: 'system', content: 'You are a Coding Assistant' },
       { role: 'user', content: body.prompt },
     ],
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4-vision-preview',
     temperature: 0.8,
-    // max_tokens: body.max_tokens ?? 20,
-    stream: false,
+    max_tokens: body.max_tokens ?? 4096,
+    stream: true,
   })
 
-  const response: any = {
-    body,
-    completion,
-    chat: completion?.choices?.[0]?.message?.content,
-  }
-
-  return new Response(JSON.stringify(response), {
-    status: 200,
-    statusText: 'OK',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Custom-Header': 'foo', // custom header example
-    },
-  })
+  const stream = OpenAIStream(completion)
+  return new StreamingTextResponse(stream)
 }
