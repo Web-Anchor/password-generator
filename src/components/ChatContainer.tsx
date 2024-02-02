@@ -22,6 +22,11 @@ export default function ChatContainer(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
   const abortControllerRef = useRef<AbortController | null>(null)
 
+  console.log(
+    '🚀 ~ file: ChatContainer.tsx ~ line 20 ~ ChatContainer ~ state',
+    state,
+  )
+
   async function submit(input: {
     file?: File
     fileObj?: any

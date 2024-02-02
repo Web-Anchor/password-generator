@@ -1,4 +1,4 @@
-import React, { type RefObject } from 'react'
+import React from 'react'
 import { classNames } from '@helpers/index.ts'
 
 type Props = {
