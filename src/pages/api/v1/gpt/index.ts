@@ -1,7 +1,7 @@
 import type { APIRoute, APIContext } from 'astro'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
-import { initialProgrammerMessages } from '../messages'
+import { initialProgrammerMessages, type Message } from '../messages'
 
 // --------------------------------------------------------------------------------
 // 📌  Create AI instance
@@ -11,7 +11,7 @@ const openai = new OpenAI({
 })
 
 type BodyType = {
-  prompt: string
+  prompt: { role: string; content: string }[]
   max_tokens?: number
 }
 
@@ -22,10 +22,7 @@ export const POST: APIRoute = async ({
   const body: BodyType = await request.json()
 
   const completion = await openai.chat.completions.create({
-    messages: [
-      ...initialProgrammerMessages,
-      { role: 'user', content: body.prompt },
-    ],
+    messages: [...initialProgrammerMessages, ...(body.prompt as Message[])],
     model: 'gpt-4-vision-preview',
     temperature: 0.8,
     max_tokens: body.max_tokens ?? 4096,

@@ -34,7 +34,6 @@ export default function Input(props: ComponentType) {
     }
 
     props?.callBack?.(prompt) // 📌 pass to callback
-    setState({})
   }
 
   return (

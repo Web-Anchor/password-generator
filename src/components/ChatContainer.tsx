@@ -3,6 +3,7 @@ import axios from 'axios'
 import { message } from 'antd'
 import Input from './Input'
 import Chat from './Chat'
+import { convertFileToBase64 } from '../lib/index'
 
 type StateType = {
   prompt?: string
@@ -32,13 +33,38 @@ export default function ChatContainer(props: ComponentType) {
       }
       setState((prev) => ({ ...prev, fetching: true }))
 
+      let prompt: any = [
+        {
+          role: 'user',
+          content: input.prompt,
+        },
+      ]
+      if (input.file) {
+        const imageUrl = await convertFileToBase64(input.file)
+        prompt.push({
+          role: 'user',
+          content: [
+            {
+              type: 'image_url',
+              image_url: {
+                url: imageUrl,
+              },
+            },
+          ],
+        })
+      }
+
+      console.log('====================================')
+      console.log('prompt', prompt)
+      console.log('====================================')
+
       abortControllerRef.current = new AbortController()
       const response = await fetch('/api/v1/gpt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: input.prompt }),
+        body: JSON.stringify({ prompt }),
         signal: abortControllerRef.current.signal,
       })
 
@@ -64,7 +90,7 @@ export default function ChatContainer(props: ComponentType) {
         stream: undefined,
       }))
       const data = await response?.body
-      console.error('DONE 🚀 ', data)
+      console.warn('DONE 🚀 ', data)
     } catch (error) {
       console.error('😢 error: ', error)
     } finally {
