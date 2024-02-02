@@ -7,6 +7,7 @@ type Props = {
   callBack?: (...args: any[]) => void | Promise<any>
   children?: React.ReactNode
   fetching?: boolean
+  class?: string
 }
 
 const Loading = () => {
@@ -40,6 +41,7 @@ export default function Button(props: Props) {
         className={classNames(
           'rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
           props?.fetching && 'cursor-not-allowed opacity-25',
+          props?.class ?? '',
         )}
         id={props.id}
         onKeyDown={(e) => {
