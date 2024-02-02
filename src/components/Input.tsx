@@ -4,12 +4,15 @@ import axios from 'axios'
 import { message } from 'antd'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import FileUpload from './FileUpload'
 
 type StateType = {
   prompt?: string
   chat?: string[]
   stream?: string
   fetching?: boolean
+  file?: File
+  fileObj?: any
 }
 
 type ComponentType = {
@@ -19,52 +22,64 @@ type ComponentType = {
 export default function Input(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
 
-  async function submit() {
-    try {
-      if (!state.prompt) return message.error('Please enter a prompt')
-      setState((prev) => ({ ...prev, fetching: true }))
+  console.log('⭐️ STATE ', state)
 
-      const response = await fetch('/api/v1/gpt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: state.prompt }),
-      })
+  // async function submit(event: Event) {
+  //   try {
+  //     if (!state.prompt) return message.error('Please enter a prompt')
+  //     setState((prev) => ({ ...prev, fetching: true }))
 
-      const reader = response?.body?.getReader?.()
-      let stream = ''
+  //     const response = await fetch('/api/v1/gpt', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ prompt: state.prompt }),
+  //     })
 
-      const decode = new TextDecoder()
-      while (true && reader) {
-        const { done, value } = await reader.read()
-        if (done) break
-        const text = decode.decode(value)
-        stream += text
+  //     const reader = response?.body?.getReader?.()
+  //     let stream = ''
 
-        setState((prev) => ({ ...prev, stream }))
-      }
+  //     const decode = new TextDecoder()
+  //     while (true && reader) {
+  //       const { done, value } = await reader.read()
+  //       if (done) break
+  //       const text = decode.decode(value)
+  //       stream += text
 
-      // add to chat list and clear prompt list & stream
-      setState((prev) => ({
-        ...prev,
-        chat: [...(prev.chat ?? []), stream],
-        prompt: '',
-        stream: undefined,
-      }))
-    } catch (error) {
-      console.error('😢 error: ', error)
-    } finally {
-      setState((prev) => ({ ...prev, fetching: false }))
+  //       setState((prev) => ({ ...prev, stream }))
+  //     }
+
+  //     // add to chat list and clear prompt list & stream
+  //     setState((prev) => ({
+  //       ...prev,
+  //       chat: [...(prev.chat ?? []), stream],
+  //       prompt: '',
+  //       stream: undefined,
+  //     }))
+  //   } catch (error) {
+  //     console.error('😢 error: ', error)
+  //   } finally {
+  //     setState((prev) => ({ ...prev, fetching: false }))
+  //   }
+  // }
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault()
+
+    const form = new FormData(e.target as HTMLFormElement)
+    const formProps = Object.fromEntries(form.entries())
+
+    const prompt = {
+      prompt: formProps.prompt,
+      ...state,
     }
+
+    console.log('Form Props', prompt)
+    props?.callBack?.(prompt) // 📌 pass to callback
   }
 
   const handleCopyClick = (index: number) => {
-    // if (textAreaRef.current) {
-    //   textAreaRef.current.select();
-    //   document.execCommand('copy');
-    // }
-
     const chat = state?.chat?.[index]
     navigator.clipboard.writeText(chat!)
   }
@@ -117,15 +132,15 @@ export default function Input(props: ComponentType) {
           />
         </div>
         <div className="min-w-0 flex-1">
-          <form className="relative">
-            <div className="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-              <label htmlFor="comment" className="sr-only">
-                Add your comment
+          <form className="relative" onSubmit={submit}>
+            <div className="overflow-y-auto rounded-lg shadow-sm ring-1 h-[200px] ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+              <label htmlFor="prompt" className="sr-only">
+                Add your prompt
               </label>
               <textarea
                 rows={3}
-                name="comment"
-                id="comment"
+                name="prompt"
+                id="prompt"
                 className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-200 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 placeholder="Add your request..."
                 value={state.prompt || ''}
@@ -134,26 +149,22 @@ export default function Input(props: ComponentType) {
                 }
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && e.metaKey) {
-                    e.preventDefault()
-                    submit()
+                    submit(e)
                   }
                 }}
               />
-              <div className="py-2" aria-hidden="true">
-                <div className="py-px">
-                  <div className="h-9"></div>
-                </div>
-              </div>
             </div>
 
-            <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
-              <div className="flex-shrink-0 ml-auto">
-                <Button
-                  label="Post"
-                  fetching={state.fetching}
-                  callBack={submit}
-                />
-              </div>
+            <div className="absolute bottom-0 right-0 flex flex-col gap-5 justify-between py-2 pl-3 pr-2 w-fit">
+              <FileUpload
+                name="file"
+                label="File"
+                accept="image/jpeg,image/png"
+                callBack={(file) => {
+                  setState((prev) => ({ ...prev, ...file }))
+                }}
+              />
+              <Button label="Submit" fetching={state.fetching} type="submit" />
             </div>
           </form>
         </div>

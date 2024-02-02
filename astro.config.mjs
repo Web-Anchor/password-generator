@@ -5,7 +5,14 @@ import react from '@astrojs/react'
 
 export default defineConfig({
   // ...
-  integrations: [tailwind(), react()],
+  integrations: [
+    tailwind({
+      // Example: Allow writing nested CSS declarations
+      // alongside Tailwind's syntax
+      nesting: true,
+    }),
+    react(),
+  ],
   // --------------------------------------------------------------------------------
   // 📌  SSR for page generation & vercel host adaptor
   // --------------------------------------------------------------------------------

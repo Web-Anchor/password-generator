@@ -18,7 +18,6 @@ type BodyType = {
 export const POST: APIRoute = async ({
   params,
   request,
-  url,
 }: APIContext): Promise<Response> => {
   const body: BodyType = await request.json()
 
