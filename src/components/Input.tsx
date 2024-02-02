@@ -1,7 +1,6 @@
 import Button from '@components/Button'
 import React, { useState } from 'react'
 import FileUpload from './FileUpload'
-import { classNames } from '@helpers/index'
 
 type StateType = {
   prompt?: string

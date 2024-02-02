@@ -54,10 +54,6 @@ export default function ChatContainer(props: ComponentType) {
         })
       }
 
-      console.log('====================================')
-      console.log('prompt', prompt)
-      console.log('====================================')
-
       abortControllerRef.current = new AbortController()
       const response = await fetch('/api/v1/gpt', {
         method: 'POST',

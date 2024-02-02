@@ -9,6 +9,7 @@
       "@layouts/*": ["./src/layouts/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@lib/*": ["./src/lib/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@components/*": ["./src/components/*"],
     },
   },

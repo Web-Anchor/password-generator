@@ -17,8 +17,6 @@ export default function Chat(props: ComponentType) {
   const handleCopyClick = (index: number) => {
     const chat = props?.chats?.[index]
 
-    console.log('🚀 ~ file: Chat.tsx ~ line 20 ~ handleCopyClick ~ chat', chat)
-
     navigator.clipboard.writeText(chat!)
 
     // set 1s timeout to reset the copied state
