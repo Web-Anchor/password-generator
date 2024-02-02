@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import axios from 'axios'
 import { message } from 'antd'
 import Input from './Input'
@@ -19,6 +19,7 @@ type ComponentType = {
 
 export default function ChatContainer(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   async function submit(input: {
     file?: File
@@ -31,12 +32,14 @@ export default function ChatContainer(props: ComponentType) {
       }
       setState((prev) => ({ ...prev, fetching: true }))
 
+      abortControllerRef.current = new AbortController()
       const response = await fetch('/api/v1/gpt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ prompt: input.prompt }),
+        signal: abortControllerRef.current.signal,
       })
 
       const reader = response?.body?.getReader?.()
@@ -69,10 +72,20 @@ export default function ChatContainer(props: ComponentType) {
     }
   }
 
+  function abortRequest() {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+  }
+
   return (
     <section className="flex flex-col gap-10">
       <Chat stream={state.stream} chats={state.chats} />
-      <Input callBack={submit} fetching={state.fetching} />
+      <Input
+        callBack={submit}
+        fetching={state.fetching}
+        cancelCallback={abortRequest}
+      />
     </section>
   )
 }

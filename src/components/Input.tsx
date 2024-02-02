@@ -1,6 +1,7 @@
 import Button from '@components/Button'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import FileUpload from './FileUpload'
+import { classNames } from '@helpers/index'
 
 type StateType = {
   prompt?: string
@@ -11,6 +12,7 @@ type StateType = {
 type ComponentType = {
   fetching?: boolean
   callBack?: (props: any) => void
+  cancelCallback?: () => void
 }
 
 export default function Input(props: ComponentType) {
@@ -78,7 +80,16 @@ export default function Input(props: ComponentType) {
               }}
               fetching={props.fetching}
             />
-            <Button label="Submit" fetching={props.fetching} type="submit" />
+            {!props.fetching && (
+              <Button label={'Send'} fetching={props.fetching} type="submit" />
+            )}
+            {props.fetching && (
+              <Button
+                label={'Cancel'}
+                class="bg-red-600"
+                callBack={props.cancelCallback}
+              />
+            )}
             <button ref={btnRef} type="submit" hidden />
           </div>
         </form>
