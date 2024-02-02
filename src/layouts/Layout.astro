@@ -49,4 +49,46 @@ const { title } = Astro.props
   html {
     font-family: system-ui, sans-serif;
   }
+
+  body {
+    /* For webkit-based browsers (Chrome, Safari) */
+    /* Thin scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px; /* Width of the entire scrollbar */
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; /* Color of the track */
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888; /* Color of the scroll thumb */
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; /* Color of the scroll thumb on hover */
+    }
+
+    /* For Firefox and other browsers */
+    /* Thin scrollbar */
+    /* Note: This property is not supported in Chrome and Safari */
+    * {
+      scrollbar-width: thin;
+    }
+
+    /* Track */
+    /* Note: This property is not supported in Chrome and Safari */
+    *::-webkit-scrollbar-track {
+      background: #f1f1f1; /* Color of the track */
+    }
+
+    /* Handle */
+    /* Note: This property is not supported in Chrome and Safari */
+    *::-webkit-scrollbar-thumb {
+      background: #888; /* Color of the scroll thumb */
+    }
+  }
 </style>

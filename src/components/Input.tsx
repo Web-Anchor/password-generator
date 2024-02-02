@@ -71,7 +71,7 @@ export default function Input(props: ComponentType) {
 
   return (
     <section className="flex flex-col gap-10">
-      <div className="flex flex-col gap-5 lg:px-40">
+      <div className="flex flex-col gap-5 lg:px-40 max-h-[400px]_">
         {state.chat?.map((chat, index) => {
           return (
             <div key={index} className="flex items-start">
@@ -90,7 +90,7 @@ export default function Input(props: ComponentType) {
               </>
 
               <div className="min-w-0 flex-1">
-                <div className="bg-gray-800 rounded-lg p-3">
+                <div className="bg-gray-800 rounded-lg p-3 overflow-auto">
                   <Markdown
                     remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
                   >
@@ -132,7 +132,13 @@ export default function Input(props: ComponentType) {
                 onChange={(e) =>
                   setState((prev) => ({ ...prev, prompt: e.target.value }))
                 }
-              ></textarea>
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && e.metaKey) {
+                    e.preventDefault()
+                    submit()
+                  }
+                }}
+              />
               <div className="py-2" aria-hidden="true">
                 <div className="py-px">
                   <div className="h-9"></div>

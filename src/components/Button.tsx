@@ -44,15 +44,6 @@ export default function Button(props: Props) {
           props?.class ?? '',
         )}
         id={props.id}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            props?.callBack?.()
-          }
-          // or cmd + enter
-          if (e.key === 'Enter' && e.metaKey) {
-            props?.callBack?.()
-          }
-        }}
         disabled={props.fetching}
       >
         {props.label ?? 'Click me!'}
