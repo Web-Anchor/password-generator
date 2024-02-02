@@ -9,6 +9,7 @@ type SelectTypes = {
   class?: string
   callBack?: (...args: any[]) => void
   accept?: string
+  fetching?: boolean
 }
 
 export default function FileUpload(props: SelectTypes) {
@@ -52,6 +53,7 @@ export default function FileUpload(props: SelectTypes) {
           callBack={() => inputRef.current?.click()}
           label={props.label ?? 'Upload'}
           class="w-fit"
+          fetching={props.fetching}
         />
 
         {file && (

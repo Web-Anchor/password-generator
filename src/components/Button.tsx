@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type RefObject } from 'react'
 import { classNames } from '@helpers/index.ts'
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
   fetching?: boolean
   class?: string
   type?: 'button' | 'submit' | 'reset'
+  ref?: RefObject<HTMLButtonElement>
 }
 
 const Loading = () => {
@@ -37,17 +38,19 @@ export default function Button(props: Props) {
     <section className="relative">
       {props.fetching && <Loading />}
       <button
+        ref={props.ref}
         type={props.type ?? 'button'}
         onClick={props?.callBack}
         className={classNames(
-          'rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+          'rounded-md bg-indigo-600 px-3.5 p-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
           props?.fetching && 'cursor-not-allowed opacity-25',
           props?.class ?? '',
         )}
         id={props.id}
         disabled={props.fetching}
       >
-        {props.label ?? 'Click me!'}
+        {props.children}
+        {props.label}
       </button>
     </section>
   )
