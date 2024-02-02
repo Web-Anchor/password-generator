@@ -9,7 +9,6 @@ type Props = {
   fetching?: boolean
   class?: string
   type?: 'button' | 'submit' | 'reset'
-  ref?: RefObject<HTMLButtonElement>
 }
 
 const Loading = () => {
@@ -38,7 +37,6 @@ export default function Button(props: Props) {
     <section className="relative">
       {props.fetching && <Loading />}
       <button
-        ref={props.ref}
         type={props.type ?? 'button'}
         onClick={props?.callBack}
         className={classNames(

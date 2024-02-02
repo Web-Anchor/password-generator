@@ -11,7 +11,6 @@ type StateType = {
 type ComponentType = {
   fetching?: boolean
   callBack?: (props: any) => void
-  clearState?: () => void
 }
 
 export default function Input(props: ComponentType) {
@@ -33,16 +32,8 @@ export default function Input(props: ComponentType) {
     }
 
     props?.callBack?.(prompt) // 📌 pass to callback
+    setState({})
   }
-
-  useEffect(() => {
-    // --------------------------------------------------------------------------------
-    // 📌  Clear Callback to clear state input
-    // --------------------------------------------------------------------------------
-    if (props.clearState) {
-      setState({})
-    }
-  }, [props.clearState])
 
   return (
     <section className="flex items-start space-x-4 lg:px-40">

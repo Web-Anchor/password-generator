@@ -20,13 +20,6 @@ type ComponentType = {
 export default function ChatContainer(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
 
-  function clearPrompt() {
-    // --------------------------------------------------------------------------------
-    // 📌  Clear Prompt callBack
-    // --------------------------------------------------------------------------------
-    console.log('📌 Clear Prompt callBack')
-  }
-
   async function submit(input: {
     file?: File
     fileObj?: any
@@ -60,7 +53,6 @@ export default function ChatContainer(props: ComponentType) {
 
         setState((prev) => ({ ...prev, stream }))
       }
-      clearPrompt() // clear prompt
 
       // add to chat list and clear prompt list & stream
       setState((prev) => ({
@@ -80,11 +72,7 @@ export default function ChatContainer(props: ComponentType) {
   return (
     <section className="flex flex-col gap-10">
       <Chat stream={state.stream} chats={state.chats} />
-      <Input
-        callBack={submit}
-        fetching={state.fetching}
-        clearState={clearPrompt}
-      />
+      <Input callBack={submit} fetching={state.fetching} />
     </section>
   )
 }
