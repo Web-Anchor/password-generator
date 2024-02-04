@@ -1,8 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { message } from 'antd'
 import Input from './Input'
 import Chat from './Chat'
-import { convertFileToBase64, saveToLocalStorage } from '@lib/index'
+import {
+  convertFileToBase64,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from '@lib/index'
 
 type StateType = {
   prompt?: string
@@ -21,9 +25,14 @@ export default function ChatContainer(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  console.log('🚀 ~ state', state)
+  // console.log('🚀 ~ state', state)
 
-  console.log(import.meta.env)
+  useEffect(() => {
+    const { data } = getFromLocalStorage()
+    if (data) {
+      setState((prev) => ({ ...prev, chats: data }))
+    }
+  }, [])
 
   async function submit(input: {
     file?: File
