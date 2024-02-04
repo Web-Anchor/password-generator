@@ -19,6 +19,4 @@ export const getFromLocalStorage = () => {
 export const removeFromLocalStorage = (name?: string) => {
   // remove from local storage
   localStorage.removeItem(name ?? STORAGE_NAME)
-
-  return { data: null }
 }

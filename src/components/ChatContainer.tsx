@@ -27,6 +27,14 @@ export default function ChatContainer(props: ComponentType) {
 
   // console.log('🚀 ~ state', state)
 
+  function stateSetter(blob: StateType, clear?: boolean) {
+    if (clear) {
+      return setState({})
+    }
+
+    setState((prev) => ({ ...prev, ...blob }))
+  }
+
   useEffect(() => {
     const { data } = getFromLocalStorage()
     if (data) {
@@ -122,6 +130,7 @@ export default function ChatContainer(props: ComponentType) {
         callBack={submit}
         fetching={state.fetching}
         cancelCallback={abortRequest}
+        clearStateCallback={() => stateSetter({}, true)}
       />
     </section>
   )
