@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react'
-import axios from 'axios'
 import { message } from 'antd'
 import Input from './Input'
 import Chat from './Chat'
-import { convertFileToBase64 } from '../lib/index'
+import { convertFileToBase64, saveToLocalStorage } from '@lib/index'
 
 type StateType = {
   prompt?: string
@@ -22,10 +21,9 @@ export default function ChatContainer(props: ComponentType) {
   const [state, setState] = useState<StateType>({})
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  console.log(
-    '🚀 ~ file: ChatContainer.tsx ~ line 20 ~ ChatContainer ~ state',
-    state,
-  )
+  console.log('🚀 ~ state', state)
+
+  console.log(import.meta.env)
 
   async function submit(input: {
     file?: File
@@ -76,6 +74,11 @@ export default function ChatContainer(props: ComponentType) {
       while (true && reader) {
         const { done, value } = await reader.read()
         if (done) {
+          // --------------------------------------------------------------------------------
+          // 📌  Store Response to local storage
+          // --------------------------------------------------------------------------------
+          saveToLocalStorage(stream)
+
           break
         }
         const text = decode.decode(value)
@@ -90,8 +93,6 @@ export default function ChatContainer(props: ComponentType) {
         chats: [...(prev.chats ?? []), stream],
         stream: undefined,
       }))
-      const data = await response?.body
-      console.warn('DONE 🚀 ', data)
     } catch (error) {
       console.error('😢 error: ', error)
     } finally {
