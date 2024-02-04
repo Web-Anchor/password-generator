@@ -53,12 +53,24 @@ export default function ChatContainer(props: ComponentType) {
       }
       setState((prev) => ({ ...prev, fetching: true }))
 
+      // --------------------------------------------------------------------------------
+      // 📌  Chat GPT prompts
+      // --------------------------------------------------------------------------------
       let prompt: any = [
         {
           role: 'user',
           content: input.prompt,
         },
       ]
+      // last chat msg
+      const lastChat = state.chats?.[state.chats.length - 1]
+      if (lastChat) {
+        prompt.push({
+          role: 'assistant',
+          content: lastChat,
+        })
+      }
+
       if (input.file) {
         const imageUrl = await convertFileToBase64(input.file)
         prompt.push({
@@ -126,6 +138,7 @@ export default function ChatContainer(props: ComponentType) {
   return (
     <section className="flex flex-col gap-10">
       <Chat stream={state.stream} chats={state.chats} />
+
       <Input
         callBack={submit}
         fetching={state.fetching}
