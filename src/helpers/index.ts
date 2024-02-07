@@ -2,4 +2,5 @@
 // 📌  Default exports
 // --------------------------------------------------------------------------------
 
-export * from './helpers';
+export * from './helpers'
+export * from './password'
