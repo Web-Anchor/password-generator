@@ -149,7 +149,7 @@ const PasswordGenerator = () => {
               description="Utilizing lowercase letters in the password."
               checked={state.lowercase}
             />
-            <Slider />
+            <Slider name="slider-thumb" label="Password Length" />
           </div>
         </div>
         <div className="flex -mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-2xl lg:flex-shrink-0">

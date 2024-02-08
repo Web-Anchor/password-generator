@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
 const MIN_VALUE = 6
-const MAX_VALUE = 36
+const MAX_VALUE = 60
 
-export default function Slider() {
+type SliderProps = {
+  name: string
+  label?: string
+  id?: string
+}
+
+export default function Slider(props: SliderProps) {
   const [value, setValue] = useState(MIN_VALUE)
   const [isDragging, setIsDragging] = useState(false)
 
@@ -35,25 +41,31 @@ export default function Slider() {
   }, [])
 
   return (
-    <div className="w-full py-6">
+    <div className="w-full">
       <div className="relative" id="slider-container">
+        {props.label && (
+          <label
+            htmlFor={props.id ?? props.name}
+            className="font-medium text-gray-100"
+          >
+            {props.label}
+          </label>
+        )}
         <input
           type="range"
-          min={8}
-          max={36}
+          id={props.id ?? props.name}
+          min={MIN_VALUE}
+          max={MAX_VALUE}
           value={value}
           onChange={handleChange}
           className="slider-thumb w-full h-2 bg-blue-600 rounded-lg appearance-none cursor-pointer"
-          style={{
-            backgroundSize: `${((value - MIN_VALUE) / (MAX_VALUE - MIN_VALUE)) * 100}% 100%`,
-          }}
-          name="slider-thumb"
+          name={props.name}
         />
         {isDragging && (
           <div
-            className="absolute -top-11 w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-full shadow-slider"
+            className="absolute -top-6 w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-full shadow-slider"
             style={{
-              left: `calc(${((value - MIN_VALUE) / (MAX_VALUE - MIN_VALUE)) * 100}% - 2.5rem)`,
+              left: `calc(${((value - MIN_VALUE) / (MAX_VALUE - MIN_VALUE)) * 100}% - ${value / 2}px)`,
             }}
           >
             {value}
