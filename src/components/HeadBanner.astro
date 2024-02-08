@@ -1,0 +1,25 @@
+---
+interface Props {
+  href?: string
+}
+
+const { href } = Astro.props
+---
+
+<section class="flex flex-1 flex-col justify-end my-5 mx-24">
+  <div
+    class="flex flex-col items-center justify-center w-full h-full space-y-5"
+  >
+    <h1
+      class="text-3xl font-bold tracking-tight text-center text-gray-100 sm:text-5xl"
+    >
+      PassGen Plus: Empowering Your Online Security with Strong Passwords
+    </h1>
+    <p class="mt-6 text-lg leading-8 text-gray-400">
+      PassGen Plus simplifies creating strong, unique passwords to protect
+      against rising cyber threats, ensuring data security. By generating
+      complex passwords for each account, you can fortify their defenses and
+      avoid vulnerabilities to potential hacking attempts.
+    </p>
+  </div>
+</section>

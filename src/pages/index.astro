@@ -2,6 +2,7 @@
 import Layout from '@layouts/Layout.astro'
 import Banner from '@components/Banner.astro'
 import Card from '@components/Card.astro'
+import HeadBanner from '@components/HeadBanner.astro'
 ---
 
 <Layout title="Welcome to Astro.">
@@ -16,19 +17,7 @@ import Card from '@components/Card.astro'
     </div>
   </div>
 
-  <section class="flex flex-1 flex-col justify-end py-5">
-    <div
-      class="flex flex-col items-center justify-center w-full h-full space-y-5"
-    >
-      <h1 class="text-4xl font-bold text-center text-white sm:text-6xl">
-        PassGen Plus: Empowering Your Online Security with Strong Passwords
-      </h1>
-      <p class="text-lg text-center text-white sm:text-xl">
-        Astro is a new kind of static site builder that delivers lightning-fast
-        performance and modern developer workflows.
-      </p>
-    </div>
-  </section>
+  <HeadBanner />
   <Card />
   <Banner />
 </Layout>
