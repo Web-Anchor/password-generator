@@ -27,11 +27,15 @@ export function generateRandomPassword(props: PasswordProps) {
   // --------------------------------------------------------------------------------
   let password = ''
 
-  while (calculatePasswordStrength(password) !== strength) {
-    password = ''
-    for (let i = 0; i < length; i++) {
-      password += charset.charAt(Math.floor(Math.random() * charset.length))
-    }
+  // while (calculatePasswordStrength(password) !== strength) {
+  //   password = ''
+  //   for (let i = 0; i < length; i++) {
+  //     password += charset.charAt(Math.floor(Math.random() * charset.length))
+  //   }
+  // }
+
+  for (let i = 0; i < length; i++) {
+    password += charset.charAt(Math.floor(Math.random() * charset.length))
   }
 
   return password

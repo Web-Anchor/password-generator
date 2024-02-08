@@ -7,10 +7,11 @@ type SliderProps = {
   name: string
   label?: string
   id?: string
+  minValue?: number
 }
 
 export default function Slider(props: SliderProps) {
-  const [value, setValue] = useState(MIN_VALUE)
+  const [value, setValue] = useState(props?.minValue ?? MIN_VALUE)
   const [isDragging, setIsDragging] = useState(false)
 
   const handleChange = (e: any) => {

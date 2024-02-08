@@ -21,13 +21,13 @@ export default function Checkbox(props: Props) {
           type="checkbox"
           checked={checked}
           onChange={() => setChecked(!checked)}
-          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
         />
       </div>
       <div className="flex gap-2 ml-3 text-sm leading-6">
         <label
           htmlFor={props.id ?? props.name}
-          className="font-medium text-gray-100"
+          className="font-medium text-gray-100 cursor-pointer"
         >
           {props.label}
         </label>
