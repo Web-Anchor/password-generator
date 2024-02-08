@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Checkbox from '@components/Checkbox'
 import Button from '@components/Button'
+import Slider from '@components/Slider'
 import {
   calculatePasswordStrength,
   generateRandomPassword,
@@ -11,7 +12,7 @@ type StateProps = {
   symbols: boolean
   uppercase: boolean
   lowercase: boolean
-  length: number
+  length?: number
   password?: string
   strength?: string
 }
@@ -22,7 +23,6 @@ const PasswordGenerator = () => {
     symbols: true,
     uppercase: true,
     lowercase: true,
-    length: 12,
     password: '',
     strength: '',
   })
@@ -37,6 +37,7 @@ const PasswordGenerator = () => {
     const config = Object.fromEntries(formData)
 
     const psw = generateRandomPassword({
+      length: Number(config?.[`slider-thumb`]),
       options: {
         numbers: config.numbers === 'on',
         symbols: config.symbols === 'on',
@@ -148,6 +149,7 @@ const PasswordGenerator = () => {
               description="Utilizing lowercase letters in the password."
               checked={state.lowercase}
             />
+            <Slider />
           </div>
         </div>
         <div className="flex -mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-2xl lg:flex-shrink-0">
@@ -157,12 +159,16 @@ const PasswordGenerator = () => {
                 Your password is
                 <span className="ml-1 text-indigo-600">{state.strength}</span>
               </p>
-              <div className="flex flex-row gap-5 justify-center">
+              <div className="flex flex-row gap-2 justify-center">
                 <p className="my-8 flex items-baseline justify-center cursor-pointer">
-                  <span className="text-5xl font-bold tracking-tight text-gray-900 text-nowrap">
-                    {state.password}
-                  </span>
+                  <input
+                    type="text"
+                    value={state.password}
+                    className="text-5xl font-bold tracking-tight text-gray-900 text-nowrap w-96 border-none bg-transparent text-center"
+                    readOnly
+                  />
                 </p>
+
                 <span
                   className="my-auto pt-2 cursor-pointer"
                   onClick={copyToClipboard}
