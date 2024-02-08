@@ -21,10 +21,13 @@ export function generateRandomPassword(props: PasswordProps) {
   if (options?.numbers) charset += '0123456789'
   if (options?.symbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?'
 
-  const password = Array.from(
-    { length: length },
-    () => charset[Math.floor(Math.random() * charset.length)],
-  ).join('')
+  // --------------------------------------------------------------------------------
+  // 📌  Generate randomize string
+  // --------------------------------------------------------------------------------
+  let password = ''
+  for (let i = 0; i < length; i++) {
+    password += charset.charAt(Math.floor(Math.random() * charset.length))
+  }
 
   return password
 }
