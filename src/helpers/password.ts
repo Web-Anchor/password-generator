@@ -12,7 +12,7 @@ type PasswordProps = {
 }
 
 export function generateRandomPassword(props: PasswordProps) {
-  const { strength = 'weak', length = 12, options } = props
+  const { strength = 'strong', length = 12, options } = props
 
   let charset = ''
 
@@ -23,10 +23,15 @@ export function generateRandomPassword(props: PasswordProps) {
 
   // --------------------------------------------------------------------------------
   // 📌  Generate randomize string
+  // make sure the password matches the strength
   // --------------------------------------------------------------------------------
   let password = ''
-  for (let i = 0; i < length; i++) {
-    password += charset.charAt(Math.floor(Math.random() * charset.length))
+
+  while (calculatePasswordStrength(password) !== strength) {
+    password = ''
+    for (let i = 0; i < length; i++) {
+      password += charset.charAt(Math.floor(Math.random() * charset.length))
+    }
   }
 
   return password
