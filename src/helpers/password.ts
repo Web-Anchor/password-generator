@@ -36,8 +36,8 @@ export function calculatePasswordStrength(password: string) {
   let strength = 0
 
   if (password.length < 6) return 'weak'
-  if (password.length >= 6) strength++
-  if (password.length > 8) strength++
+  if (password.length >= 8) strength++
+  if (password.length > 12) strength++
   if (password.match(/[a-z]+/)) strength++
   if (password.match(/[A-Z]+/)) strength++
   if (password.match(/[0-9]+/)) strength++
@@ -46,5 +46,6 @@ export function calculatePasswordStrength(password: string) {
   if (strength < 3) return 'weak'
   if (strength < 4) return 'medium'
   if (strength < 5) return 'strong'
+
   return 'very-strong'
 }

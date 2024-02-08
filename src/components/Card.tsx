@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Checkbox from '@components/Checkbox'
 import Button from '@components/Button'
-import { generateRandomPassword } from '@helpers/index'
+import {
+  calculatePasswordStrength,
+  generateRandomPassword,
+} from '@helpers/index'
 
 type StateProps = {
   numbers: boolean
@@ -10,6 +13,7 @@ type StateProps = {
   lowercase: boolean
   length: number
   password?: string
+  strength?: string
 }
 
 const PasswordGenerator = () => {
@@ -20,6 +24,7 @@ const PasswordGenerator = () => {
     lowercase: true,
     length: 12,
     password: '',
+    strength: '',
   })
 
   function submit(event: any) {
@@ -41,9 +46,11 @@ const PasswordGenerator = () => {
         excludeAmbiguousCharacters: false,
       },
     })
-    console.log('FORM ', config, psw)
 
-    setState({ ...state, password: psw })
+    const strength = calculatePasswordStrength(psw)
+    console.log('FORM ', config, psw, strength)
+
+    setState({ ...state, password: psw, strength })
   }
 
   useEffect(() => {
@@ -60,8 +67,9 @@ const PasswordGenerator = () => {
         excludeAmbiguousCharacters: false,
       },
     })
+    const strength = calculatePasswordStrength(psw)
 
-    setState({ ...state, password: psw })
+    setState({ ...state, password: psw, strength })
   }, [])
 
   function copyToClipboard() {
@@ -146,7 +154,8 @@ const PasswordGenerator = () => {
           <div className="flex flex-1 rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
             <div className="mx-auto px-8">
               <p className="text-base font-semibold text-gray-600">
-                Pay once, own it forever
+                Your password is
+                <span className="ml-1 text-indigo-600">{state.strength}</span>
               </p>
               <div className="flex flex-row gap-5 justify-center">
                 <p className="my-8 flex items-baseline justify-center cursor-pointer">
