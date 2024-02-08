@@ -1,7 +1,7 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import Banner from '@components/Banner.astro'
-import Card from '@components/Card.astro'
+import Card from '@components/Card'
 import HeadBanner from '@components/HeadBanner.astro'
 ---
 
@@ -18,6 +18,6 @@ import HeadBanner from '@components/HeadBanner.astro'
   </div>
 
   <HeadBanner />
-  <Card />
+  <Card client:load />
   <Banner />
 </Layout>
