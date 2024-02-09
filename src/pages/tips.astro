@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const { href } = Astro.props
+const tips = [
+  {
+    tip: 'Use Strong Passwords',
+    description:
+      'Encourage users to create strong passwords that include a mix of letters, numbers, and special characters to enhance security.',
+  },
+  {
+    tip: 'Avoid Common Passwords',
+    description:
+      "Advise users to avoid using common passwords like 'password' or '123456' as they are easily guessable.",
+  },
+  {
+    tip: 'Unique Passwords for Each Account',
+    description:
+      'Emphasize the importance of using unique passwords for each online account to prevent a breach in one account from compromising others.',
+  },
+  {
+    tip: 'Regularly Update Passwords',
+    description:
+      'Recommend changing passwords periodically to reduce the risk of unauthorized access.',
+  },
+  {
+    tip: 'Enable Two-Factor Authentication',
+    description:
+      'Suggest enabling two-factor authentication where available to add an extra layer of security to accounts.',
+  },
+  {
+    tip: 'Beware of Phishing Attempts',
+    description:
+      'Educate users on how to recognize phishing emails and websites to prevent falling victim to scams.',
+  },
+  {
+    tip: 'Secure Password Storage',
+    description:
+      'Advise users to securely store their passwords using a reputable password manager to keep them safe and easily accessible.',
+  },
+  {
+    tip: 'Use HTTPS Websites',
+    description:
+      'Remind users to only enter sensitive information, such as passwords, on websites with HTTPS encryption for secure data transmission.',
+  },
+  {
+    tip: 'Beware of Public Wi-Fi',
+    description:
+      'Caution users against entering passwords on public Wi-Fi networks to prevent potential eavesdropping.',
+  },
+  {
+    tip: 'Regularly Check for Security Updates',
+    description:
+      'Encourage users to keep their devices and software up to date to patch security vulnerabilities.',
+  },
+]
+---
+
+<Layout title="Tips">
+  <section class="flex flex-1 flex-col mx-10">
+    <div class="flex flex-col w-full h-full max-w-2xl mx-auto">
+      <ul role="list" class="divide-y divide-gray-600">
+        {
+          tips.map((tipe) => {
+            return (
+              <li class="relative flex justify-between py-5 w-fill">
+                <div class="flex flex-col space-y-2">
+                  <span class="flex flex-row gap-2 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-4 h-4 text-green-400"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m4.5 12.75 6 6 9-13.5"
+                      />
+                    </svg>
+                    <h3 class="text-sm leading-6 text-gray-200">{tipe.tip}</h3>
+                  </span>
+                  <p class="mt-1 text-xs leading-5 text-gray-500">
+                    {tipe.description}
+                  </p>
+                </div>
+              </li>
+            )
+          })
+        }
+      </ul>
+    </div>
+  </section>
+</Layout>
