@@ -118,74 +118,82 @@ const PasswordGenerator = () => {
       onSubmit={submit}
       onChange={onChange}
     >
-      <div className="mx-auto max-w-none rounded-3xl ring-1 ring-gray-200 lg:mx-0 lg:flex lg:max-w-[1400px]">
-        <div className="p-8 sm:p-10 lg:flex-1 lg:max-w-[500px]">
-          <h3 className="text-2xl font-bold tracking-tight text-gray-100">
-            Password Generator
-          </h3>
+      <div className="flex flex-col lg:flex-row mx-auto max-w-none rounded-3xl ring-1 ring-gray-200 lg:mx-0 lg:flex lg:max-w-[1400px]">
+        <div className="flex flex-col order-2 lg:order-1 p-8 sm:p-10 lg:flex-1 lg:max-w-[500px]">
+          <div className="order-2 lg:order-1 mt-4 lg:mt-0">
+            <h3 className="text-2xl font-bold tracking-tight text-gray-100">
+              Password Generator
+            </h3>
 
-          <ul
-            role="list"
-            className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-500 sm:grid-cols-2 sm:gap-6"
-          >
-            {perks.map((perk, key) => {
-              return (
-                <li key={key} className="flex gap-x-3">
-                  <svg
-                    className="h-6 w-5 flex-none text-indigo-600"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  {perk}
-                </li>
-              )
-            })}
-          </ul>
-          <div className="mt-10 flex items-center gap-x-4">
-            <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">
-              Options
-            </h4>
-            <div className="h-px flex-auto bg-gray-100"></div>
+            <ul
+              role="list"
+              className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-500 sm:grid-cols-2 sm:gap-6"
+            >
+              {perks.map((perk, key) => {
+                return (
+                  <li key={key} className="flex gap-x-3">
+                    <svg
+                      className="h-6 w-5 flex-none text-indigo-600"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                    {perk}
+                  </li>
+                )
+              })}
+            </ul>
           </div>
+          <div className="order-1 lg:order-2">
+            <div className="lg:mt-10 flex items-center gap-x-4">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">
+                Options
+              </h4>
+              <div className="h-px flex-auto bg-gray-100"></div>
+            </div>
 
-          <div className="space-y-5 mt-5">
-            <Checkbox
-              label="Numbers"
-              name="numbers"
-              description="Including numerical digits in the password."
-              checked={state.numbers}
-            />
-            <Checkbox
-              label="Symbols"
-              name="symbols"
-              description="Including numerical digits in the password."
-              checked={state.symbols}
-            />
-            <Checkbox
-              label="Uppercase"
-              name="uppercase"
-              description="Using capital letters in the password."
-              checked={state.uppercase}
-            />
-            <Checkbox
-              label="Lowercase"
-              name="lowercase"
-              description="Utilizing lowercase letters in the password."
-              checked={state.lowercase}
-            />
-            <Slider name="slider-thumb" label="Password Length" minValue={12} />
+            <div className="space-y-5 mt-5">
+              <Checkbox
+                label="Numbers"
+                name="numbers"
+                description="Including numerical digits in the password."
+                checked={state.numbers}
+              />
+              <Checkbox
+                label="Symbols"
+                name="symbols"
+                description="Including numerical digits in the password."
+                checked={state.symbols}
+              />
+              <Checkbox
+                label="Uppercase"
+                name="uppercase"
+                description="Using capital letters in the password."
+                checked={state.uppercase}
+              />
+              <Checkbox
+                label="Lowercase"
+                name="lowercase"
+                description="Utilizing lowercase letters in the password."
+                checked={state.lowercase}
+              />
+              <Slider
+                name="slider-thumb"
+                label="Password Length"
+                minValue={12}
+              />
+            </div>
           </div>
         </div>
         <div
           className={classNames(
-            'flex flex-1 -mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-2xl lg:flex-shrink-0',
+            'order-1 lg:order-2 flex flex-1 p-2 lg:mt-0 lg:w-full lg:max-w-2xl lg:flex-shrink-0',
           )}
         >
           <div
@@ -203,17 +211,17 @@ const PasswordGenerator = () => {
             )}
 
             {!isAllDisabled && (
-              <div className="mx-auto px-8">
+              <div className="mx-auto lg:px-8">
                 <p className="text-base font-semibold text-gray-600">
                   Your password is
                   <span className="ml-1 text-indigo-600">{state.strength}</span>
                 </p>
                 <div className="flex flex-row gap-2 justify-center">
-                  <p className="my-8 flex items-baseline justify-center cursor-pointer">
+                  <p className="my-4 lg:my-8 flex items-baseline justify-center cursor-pointer">
                     <input
                       type="text"
                       value={state.password}
-                      className="text-5xl font-bold tracking-tight text-gray-900 text-nowrap w-96 border-none bg-transparent text-center focus:outline-none focus:ring-transparent focus:border-transparent focus:ring-0"
+                      className="text-2xl lg:text-5xl font-bold tracking-tight text-gray-900 lg:text-nowrap max-w-52 lg:max-w-96 border-none bg-transparent text-center focus:outline-none focus:ring-transparent focus:border-transparent focus:ring-0"
                       readOnly
                     />
                   </p>
