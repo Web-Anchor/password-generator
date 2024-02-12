@@ -7,11 +7,12 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "commit": "./commit.sh",
-    "preview": "astro preview",
+    "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
+    "@astrojs/deno": "^5.0.1",
     "@astrojs/netlify": "^5.1.0",
     "@astrojs/react": "^3.0.9",
     "@astrojs/tailwind": "^5.1.0",
