@@ -1,9 +1,9 @@
 name: Deploy
 on:
   push:
-    branches: ["production"]
+    branches: ['production']
   pull_request:
-    branches: ["production"]
+    branches: ['production']
 
 jobs:
   deploy:
@@ -18,6 +18,12 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
+      - name: Clear npm cache, node modules, and Deno cache
+        run: |
+          npm cache clean --force
+          rm -rf node_modules
+          deno cache --reload
+
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
@@ -29,11 +35,11 @@ jobs:
           node-version: 20
 
       - name: Build step
-        run: "npm install && npm run build" # 📝 Update the build command(s) if necessary
+        run: 'npm install && npm run build' # 📝 Update the build command(s) if necessary
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "real-swan-58"
-          entrypoint: "https://deno.land/std@0.188.0/http/file_server.ts" # 📝 Update the entrypoint if necessary
-          root: "dist" # 📝 Update the root if necessary
+          project: 'real-swan-58'
+          entrypoint: 'https://deno.land/std@0.188.0/http/file_server.ts' # 📝 Update the entrypoint if necessary
+          root: 'dist' # 📝 Update the root if necessary
