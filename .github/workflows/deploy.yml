@@ -1,15 +1,10 @@
 name: Deploy
-on:
-  push:
-    branches: ['production']
-  pull_request:
-    branches: ['production']
+on: [push]
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-
     permissions:
       id-token: write # Needed for auth with Deno Deploy
       contents: read # Needed to clone the repository
@@ -18,26 +13,17 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Install Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
+      # Not using npm? Change `npm ci` to `yarn install` or `pnpm i`
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install sharp # add custom sharp package instalation instructions
-        run: npm install --force --arch=x64 --platform=linux sharp
-
-      - name: Build step
-        run: npm install --force && npm run build # 📝 Update the build command(s) if necessary
+      # Not using npm? Change `npm run build` to `yarn build` or `pnpm run build`
+      - name: Build Astro
+        run: npm run build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: 'secure-lock-deploy'
-          entrypoint: 'https://deno.land/std@0.188.0/http/file_server.ts' # 📝 Update the entrypoint if necessary
-          root: 'dist' # 📝 Update the root if necessary
-
+          project: my-deno-project # TODO: replace with Deno Deploy project name
+          entrypoint: server/entry.mjs
+          root: dist
