@@ -29,7 +29,7 @@ jobs:
           node-version: 20
 
       - name: Install sharp # add custom sharp package instalation instructions
-        run: npm install --arch=x64 --platform=linux sharp
+        run: npm install --force --arch=x64 --platform=linux sharp
 
       - name: Build step
         run: npm install --force && npm run build # 📝 Update the build command(s) if necessary
