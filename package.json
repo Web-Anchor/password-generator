@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build-check": "astro check && astro build",
+    "build": "astro build",
     "commit": "./commit.sh",
     "lint": "prettier --check . && eslint --fix .",
-    "wipe": "rm -fr node_modules && bun install && bun run build",
+    "cache-clean": "npm cache clean --force && npm cache verify",
+    "wipe": "rm -fr node_modules && rm bun.lockb && bun install",
     "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "astro": "astro"
   },
@@ -28,8 +30,6 @@
     "openai": "^4.26.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.33.2",
-    "decompress-response": "^8.1.0",
     "swr": "^2.2.4",
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "^3.4.1",
