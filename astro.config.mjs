@@ -1,9 +1,7 @@
 import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
-import deno from '@astrojs/deno'
-// import vercel from '@astrojs/vercel/serverless'
-// import netlify from '@astrojs/netlify'
+import node from '@astrojs/node'
 
 export default defineConfig({
   // ...
@@ -18,8 +16,8 @@ export default defineConfig({
   // --------------------------------------------------------------------------------
   // 📌  SSR for page generation & vercel host adapter
   // --------------------------------------------------------------------------------
-  // output: 'server',
-  // adapter: netlify(),
-  // adapter: vercel(),
-  // adapter: deno(),
+  output: 'server',
+  adapter: node({
+    mode: 'standalone',
+  }),
 })
