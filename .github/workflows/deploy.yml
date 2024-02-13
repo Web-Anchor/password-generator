@@ -13,15 +13,20 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      # - name: Install dependencies
-      #   run: npm install -g bun
+      - name: Install dependencies
+        run: npm install -g bun
+
       # Not using npm? Change `npm ci` to `yarn install` or `pnpm i`
       - name: Install dependencies
-        run: npm install --force
+        run: bun install
+        # run: npm install --force
+
+      - name: Build Astro
+        run: esbuild --config=esbuild.config.js
 
       # Not using npm? Change `npm run build` to `yarn build` or `pnpm run build`
       - name: Build Astro
-        run: npm run build -- --external=sharp
+        run: bun run build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
