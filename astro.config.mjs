@@ -22,9 +22,4 @@ export default defineConfig({
   adapter: netlify(),
   adapter: vercel(),
   adapter: deno(),
-
-  // add node build loader
-  loader: {
-    '.node': 'file',
-  },
 })
