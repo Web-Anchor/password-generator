@@ -13,8 +13,17 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Build step
-        run: npm install --force && npm run build # 📝 Update the build
+      - name: Install dependencies
+        run: deno install -A -n bun https://deno.land/x/bun/cli.ts
+
+      # Not using npm? Change `npm ci` to `yarn install` or `pnpm i`
+      - name: Install dependencies
+        run: bun install
+        # run: npm install --force
+
+      # Not using npm? Change `npm run build` to `yarn build` or `pnpm run build`
+      - name: Build Astro
+        run: npm run build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
