@@ -28,11 +28,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install sharp
-        run: npm install sharp
-
-      - name: Install esbuild
-        run: npm install -g esbuild
+      - name: Install sharp # add custom sharp package instalation instructions
+        run: npm install --arch=x64 --platform=linux sharp
 
       - name: Build step
         run: npm install --force && npm run build # 📝 Update the build command(s) if necessary
@@ -44,11 +41,3 @@ jobs:
           entrypoint: 'https://deno.land/std@0.188.0/http/file_server.ts' # 📝 Update the entrypoint if necessary
           root: 'dist' # 📝 Update the root if necessary
 
-
-      # custom: # For serverless-esbuild, ensure platform-specific binaries are installed via the serverless.yml configuration.
-      #   esbuild:
-      #     external:
-      #       - sharp
-      #     packagerOptions:
-      #       scripts:
-      #         - npm install --os=linux --cpu=x64 sharp
