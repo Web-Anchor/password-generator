@@ -24,9 +24,6 @@ jobs:
         run: bun install
         # run: npm install --force
 
-      - name: Build Astro
-        run: esbuild --config=esbuild.config.js
-
       # Not using npm? Change `npm run build` to `yarn build` or `pnpm run build`
       - name: Build Astro
         run: bun run build
