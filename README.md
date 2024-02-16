@@ -67,3 +67,18 @@ htmx is a library that allows you to access modern browser features directly fro
   Click Me!
 </button>
 ```
+
+## Deno package scripts
+
+```javascript
+ "scripts": {
+    "dev": "deno run -A --unstable npm:astro dev --port 4321",
+    "start": "deno run -A --unstable npm:astro dev",
+    "build": "astro check && astro build",
+    "preview": "deno run -A --unstable ./dist/server/entry.mjs",
+    "astro": "astro",
+    "format": "deno fmt && prettier --write .",
+    "wipe": "rm -fr node_modules && rm bun.lockb && bun install",
+    "commit": "./commit.sh"
+  },
+```

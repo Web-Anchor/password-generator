@@ -4,8 +4,10 @@ import tailwind from '@astrojs/tailwind'
 // Eventually, replace this import with the official one - we're using a
 // patched version for now.
 // import deno from '@astrojs/deno'
-import deno from 'deno-astro-adapter'
+// import deno from 'deno-astro-adapter'
+import netlify from '@astrojs/netlify'
 
+// https://astro.build/config
 export default defineConfig({
   // ...
   integrations: [
@@ -19,6 +21,8 @@ export default defineConfig({
   // --------------------------------------------------------------------------------
   // 📌  SSR for page generation & vercel host adapter
   // --------------------------------------------------------------------------------
+  // output: 'server',
+  // adapter: deno(),
   output: 'server',
-  adapter: deno(),
+  adapter: netlify(),
 })
